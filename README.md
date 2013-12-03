@@ -69,10 +69,10 @@ dependencies に request モジュールを追加。
 
 ```$ acs publish``` でパブリッシュ。
 2 回目以降は ```--force``` オプションを付けること。
-パブリッシュが完了すると URL（https://xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.cloudapp.appcelerator.com）が出力されます。
+パブリッシュが完了すると URL（ https://xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.cloudapp.appcelerator.com ）が出力されます。
 
 ##### GitHub に WebHook URL を設定
 
 GitHub のレポジトリにある Settings → Service Hooks → WebHook URLs へ https://xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.cloudapp.appcelerator.com/github として追加します。
 
-
+#### payload を加工して見栄えの良い物に
