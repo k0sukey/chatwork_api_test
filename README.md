@@ -76,3 +76,58 @@ dependencies に request モジュールを追加。
 GitHub のレポジトリにある Settings → Service Hooks → WebHook URLs へ https://xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.cloudapp.appcelerator.com/github として追加します。
 
 #### payload を加工して見栄えの良い物に
+
+hoge/controllers/github.js に手を入れます。
+
+	var Request = require('request');
+
+	function index(req, res) {
+		var payload = JSON.parse(req.body.payload),
+			body = [];
+
+		body.push('レポジトリ：');
+		body.push('　' + payload.repository.name);
+		body.push('');
+
+		_.each(payload.commits, function(commit){
+			body.push('コミット：');
+			body.push('　' + commit.message + '（' + commit.committer.name + '）');
+
+			if (commit.added.length > 0) {
+				body.push('');
+				body.push('追加されたファイル：');
+			}
+			_.each(commit.added, function(added){
+				body.push('　' + added);
+			});
+
+			if (commit.removed.length > 0) {
+				body.push('');
+				body.push('削除されたファイル：');
+			}
+			_.each(commit.removed, function(removed){
+				body.push('　' + removed);
+			});
+
+			if (commit.modified.length > 0) {
+				body.push('');
+				body.push('変更されたファイル：');
+			}
+			_.each(commit.modified, function(modified){
+				body.push('　' + modified);
+			});
+		});
+
+		Request.post({
+			uri: 'https://api.chatwork.com/v1/rooms/{マイチャットの room_id}/messages',
+			headers: {
+				'X-ChatWorkToken': 'ChatWork の API トークン'
+			},
+			form: {
+				body: body.join('\n');
+			},
+			json: true
+		}, function(error, response, body){
+
+		});
+	}
