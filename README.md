@@ -79,7 +79,8 @@ GitHub のレポジトリにある Settings → Service Hooks → WebHook URLs �
 
 hoge/controllers/github.js に手を入れます。
 
-	var Request = require('request');
+	var Request = require('request'),
+		_ = require('underscore');
 
 	function index(req, res) {
 		var payload = JSON.parse(req.body.payload),
@@ -131,3 +132,10 @@ hoge/controllers/github.js に手を入れます。
 
 		});
 	}
+
+hoge/package.json に手を入れます。
+
+	"dependencies": {
+		"request": "*",
+		"underscore": "*"
+	},
